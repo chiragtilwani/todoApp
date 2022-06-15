@@ -3,10 +3,11 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import { useContext,useState } from 'react';
+import { useContext, useState } from 'react';
 import { TodoContext } from './context/Todo.context'
 import List from '@mui/material/List';
 import Todo from './Todo'
+import emptyList from './images/emptyList.svg'
 
 
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
     },
     paper2: {
         width: '50%',
+        height:'75vh'
     },
     button: {
         margin: '1rem!important',
@@ -50,13 +52,13 @@ const useStyles = makeStyles({
     span: {
         marginLeft: '2rem'
     },
-    list:{
-        maxWidth:'100% !important',
-        '&::-webkit-scrollbar':{
-            display:'none'
+    list: {
+        maxWidth: '100% !important',
+        '&::-webkit-scrollbar': {
+            display: 'none'
         }
     },
-    form:{
+    form: {
         width: '100%',
         display: 'flex',
         justifyContent: 'space-evenly',
@@ -66,22 +68,22 @@ const useStyles = makeStyles({
 const style = {
     width: '100%',
     maxWidth: 360,
-    maxHeight:'75vh',
+    maxHeight: '75vh',
     bgcolor: 'background.paper',
-    padding:'0',
+    padding: '0',
     overflowY: 'scroll',
 };
 
 function TodoApp() {
     const classes = useStyles()
-    const [task,setTask] = useState("")
-    const { todoArray,toggleTodoComplete,deleteTodo,addTodo,editTodo } = useContext(TodoContext)
+    const [task, setTask] = useState("")
+    const { todoArray, toggleTodoComplete, deleteTodo, addTodo, editTodo } = useContext(TodoContext)
 
-    function handleChange(evt){
+    function handleChange(evt) {
         setTask(evt.target.value)
     }
 
-    function handleAddTodo(evt){
+    function handleAddTodo(evt) {
         evt.preventDefault()
         addTodo(task)
         setTask("")
@@ -93,18 +95,19 @@ function TodoApp() {
             <div className={classes.container}>
                 <Paper className={classes.paper1}>
                     <form onSubmit={handleAddTodo} className={classes.form}>
-                    <TextField id="standard-basic" label="Add Todo" variant="standard" className={classes.textField} required value={task} onChange={handleChange}/>
-                    <Stack spacing={2} direction="row">
-                        <Button variant="contained" className={classes.button} type="submit">Add</Button>
-                    </Stack>
+                        <TextField id="standard-basic" label="Add Todo" variant="standard" className={classes.textField} required value={task} onChange={handleChange} />
+                        <Stack spacing={2} direction="row">
+                            <Button variant="contained" className={classes.button} type="submit">Add</Button>
+                        </Stack>
                     </form>
                 </Paper>
                 <Paper className={classes.paper2}>
-                <List sx={style} component="nav" aria-label="mailbox folders" className={classes.list}>
-                    {todoArray.map(todo =>
-                        <Todo key={todo.id} {...todo}  toggleTodoComplete={toggleTodoComplete} deleteTodo={deleteTodo} editTodo={editTodo}/>
-                    )}
-                </List>
+
+                    {todoArray.length === 0 ? <img src={emptyList} alt="empty list" style={{width: '100%', height: '100%'}} /> : <List sx={style} component="nav" aria-label="mailbox folders" className={classes.list}>
+                        {todoArray.map(todo =>
+                            <Todo key={todo.id} {...todo} toggleTodoComplete={toggleTodoComplete} deleteTodo={deleteTodo} editTodo={editTodo} />
+                        )}
+                    </List>}
                 </Paper>
             </div>
         </>
