@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 import { makeStyles } from '@mui/styles'
 import { FiEdit2 } from 'react-icons/fi';
 import { FaTrashAlt } from 'react-icons/fa';
-import { useState, useContext } from 'react'
+import { useState, useContext,memo } from 'react'
 import Sizes from './Sizes'
 import { DispatchContext } from './context/Todo.context';
 import EditForm from './EditForm'
@@ -89,6 +89,7 @@ function Todo(props) {
         dispatch({ type: 'Edit', id: id, newTask: editedTask })
         setShowEditForm(!showEditForm)
     }
+    console.log(task)
     return <>
         <ListItem className={classes.paper2} button style={{ width: '100%' }} onClick={showEditForm ? null : handleClick}>
             <ListItemText className={classes.span} style={{ textDecoration: completed ? 'line-through' : 'none', display: showEditForm ? 'none' : '' }}>{task}</ListItemText>
@@ -106,5 +107,5 @@ function Todo(props) {
 
 }
 
-export default Todo;
+export default memo(Todo);
 
