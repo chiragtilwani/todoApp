@@ -1,6 +1,6 @@
 import './App.css';
 import TodoApp from './TodoApp'
-import {TodoProvider} from './context/Todo.context'
+import { TodoProvider } from './context/Todo.context'
 
 function App() {
   return (

@@ -4,11 +4,10 @@ import Divider from '@mui/material/Divider';
 import { makeStyles } from '@mui/styles'
 import { FiEdit2 } from 'react-icons/fi';
 import { FaTrashAlt } from 'react-icons/fa';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react'
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { useState, useContext } from 'react'
 import Sizes from './Sizes'
+import { DispatchContext } from './context/Todo.context';
+import EditForm from './EditForm'
 
 
 
@@ -30,14 +29,14 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'space-between',
         fontSize: '1.4rem',
-        [Sizes.down('lg')]:{
-            width:'10%'
+        [Sizes.down('lg')]: {
+            width: '10%'
         },
-        [Sizes.down('sm')]:{
-            width:'10%'
+        [Sizes.down('sm')]: {
+            width: '10%'
         },
-        [Sizes.down('sm')]:{
-            width:'12%'
+        [Sizes.down('sm')]: {
+            width: '12%'
         }
     },
     hoverEffect: {
@@ -65,40 +64,36 @@ const useStyles = makeStyles({
 
 function Todo(props) {
     const classes = useStyles()
-    const { id, task, completed, toggleTodoComplete, deleteTodo,editTodo } = props
+    const { id, task, completed } = props
     const [showEditForm, setShowEditForm] = useState(false)
     const [editedTask, setEditedTask] = useState(task)
+    const dispatch = useContext(DispatchContext)
     function handleClick() {
-        toggleTodoComplete(id)
+        dispatch({ type: 'toggleTodoComplete', id: id })
     }
 
     function handleDeleteClick(evt) {
         evt.stopPropagation()
-        deleteTodo(id)
+        dispatch({ type: 'Remove', id: id })
     }
     function handleEditClick(evt) {
         evt.stopPropagation()
         setShowEditForm(!showEditForm)
     }
 
-    function handleChange(evt){
+    function handleChange(evt) {
         setEditedTask(evt.target.value)
     }
     function handleSubmit(evt) {
         evt.preventDefault()
-        editTodo(id,editedTask)
+        dispatch({ type: 'Edit', id: id, newTask: editedTask })
         setShowEditForm(!showEditForm)
     }
     return <>
         <ListItem className={classes.paper2} button style={{ width: '100%' }} onClick={showEditForm ? null : handleClick}>
             <ListItemText className={classes.span} style={{ textDecoration: completed ? 'line-through' : 'none', display: showEditForm ? 'none' : '' }}>{task}</ListItemText>
 
-            <form className={classes.editForm} style={{ display: showEditForm ? '' : 'none' }} onSubmit={handleSubmit}>
-                <TextField id="standard-basic" variant="standard" required className={classes.textField} value={editedTask} onChange={handleChange}/>
-                <Stack spacing={2} direction="row">
-                    <Button variant="contained" className={classes.editButton} type="submit">Edit</Button>
-                </Stack>
-            </form>
+            <EditForm classes={classes} showEditForm={showEditForm} handleSubmit={handleSubmit} editedTask={editedTask} handleChange={handleChange} />
 
             <div className={classes.deleteEdit} style={{ display: showEditForm ? 'none' : '' }}>
                 <FaTrashAlt className={classes.hoverEffect} onClick={handleDeleteClick} />
@@ -106,7 +101,7 @@ function Todo(props) {
             </div>
 
         </ListItem>
-        <Divider/>
+        <Divider />
     </>
 
 }
