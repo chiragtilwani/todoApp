@@ -1,66 +1,12 @@
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import { makeStyles } from '@mui/styles'
 import { FiEdit2 } from 'react-icons/fi';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useState, useContext,memo } from 'react'
-import Sizes from './Sizes'
 import { DispatchContext } from './context/Todo.context';
 import EditForm from './EditForm'
-
-
-
-const useStyles = makeStyles({
-    paper2: {
-        width: '50%',
-        height: '5rem !important',
-        display: 'flex !important',
-        justifyContent: 'space-between !important',
-        alignItems: 'center !important',
-        margin: '0 1rem',
-        border: '.2rem solid',
-    },
-    span: {
-        marginLeft: '1rem',
-    },
-    deleteEdit: {
-        width: '6%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: '1.4rem',
-        [Sizes.down('lg')]: {
-            width: '10%'
-        },
-        [Sizes.down('sm')]: {
-            width: '10%'
-        },
-        [Sizes.down('sm')]: {
-            width: '12%'
-        }
-    },
-    hoverEffect: {
-        transitionDuration: '200ms',
-        '&:hover': {
-            color: '#e63946',
-            transform: 'scale(1.5)'
-        }
-    },
-    editForm: {
-        display: 'flex',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%',
-        justifyContent: 'space-between',
-    },
-    editButton: {
-        margin: '1rem!important',
-        fontSize: '1.2rem !important',
-        fontWeight: 'bold !important',
-        backgroundColor: '#1d3557 !important',
-        color: '#f1faee !important',
-    }
-})
+import useStyles from './styles/TodoStyles'
 
 function Todo(props) {
     const classes = useStyles()

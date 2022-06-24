@@ -8,9 +8,6 @@ import emptyList from './images/emptyList.svg'
 import AddTodoForm from './AddTodoForm'
 import useStyles from './styles/TodoAppStyles';
 
-
-
-
 const style = {
     width: '100%',
     maxWidth: 360,
