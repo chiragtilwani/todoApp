@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import { useState } from 'react'
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Sizes from './Sizes'
 
 
 
@@ -29,6 +30,15 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'space-between',
         fontSize: '1.4rem',
+        [Sizes.down('lg')]:{
+            width:'10%'
+        },
+        [Sizes.down('sm')]:{
+            width:'10%'
+        },
+        [Sizes.down('sm')]:{
+            width:'12%'
+        }
     },
     hoverEffect: {
         transitionDuration: '200ms',

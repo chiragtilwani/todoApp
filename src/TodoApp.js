@@ -8,15 +8,18 @@ import { TodoContext } from './context/Todo.context'
 import List from '@mui/material/List';
 import Todo from './Todo'
 import emptyList from './images/emptyList.svg'
+import Sizes from './Sizes'
 
 
 
 const useStyles = makeStyles({
     container: {
         width: '100%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        border: '.2rem solid'
     },
     Navbar: {
         width: '100%',
@@ -35,12 +38,29 @@ const useStyles = makeStyles({
     },
     paper1: {
         width: '50%',
-        minHeight: '2rem',
-        margin: '2rem'
+        margin: '2rem',
+        [Sizes.down('sm')]: {
+            width: '70%'
+        },
+        [Sizes.down('xs')]: {
+            width: '95%'
+        }
     },
     paper2: {
         width: '50%',
-        height:'75vh'
+        maxHeight: '75vh',
+        display: 'flex',
+        justifyContent: 'center',
+        [Sizes.down('lg')]: {
+        },
+        [Sizes.down('sm')]: {
+            width: '70%'
+        },
+        [Sizes.down('xs')]: {
+            width: '95%',
+            height:'80vh',
+            maxHeight: '85vh !important',
+        }
     },
     button: {
         margin: '1rem!important',
@@ -62,6 +82,9 @@ const useStyles = makeStyles({
         width: '100%',
         display: 'flex',
         justifyContent: 'space-evenly',
+    },
+    img: {
+        width: '75%',
     }
 })
 
@@ -103,7 +126,7 @@ function TodoApp() {
                 </Paper>
                 <Paper className={classes.paper2}>
 
-                    {todoArray.length === 0 ? <img src={emptyList} alt="empty list" style={{width: '100%', height: '100%'}} /> : <List sx={style} component="nav" aria-label="mailbox folders" className={classes.list}>
+                    {todoArray.length === 0 ? <img src={emptyList} alt="empty list" className={classes.img} /> : <List sx={style} component="nav" aria-label="mailbox folders" className={classes.list}>
                         {todoArray.map(todo =>
                             <Todo key={todo.id} {...todo} toggleTodoComplete={toggleTodoComplete} deleteTodo={deleteTodo} editTodo={editTodo} />
                         )}

@@ -15,7 +15,9 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.4.0",
+    "react-moving-text": "0.0.7",
     "react-scripts": "5.0.1",
+    "react-sortable-hoc": "^2.0.0",
     "styled-components": "^5.3.5",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
